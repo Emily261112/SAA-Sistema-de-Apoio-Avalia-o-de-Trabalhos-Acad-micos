@@ -40,7 +40,7 @@ As principais entidades do sistema são:
 
 ## 🧩 Diagrama Entidade-Relacionamento (ER)
 O diagrama mostra as relações entre as entidades do sistema.  
-  
+   
 
 ---
 
