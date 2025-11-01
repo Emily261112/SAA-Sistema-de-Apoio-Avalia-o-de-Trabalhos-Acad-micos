@@ -1,4 +1,3 @@
-
 -- Criação das tabelas
 
 CREATE TABLE Usuario (
