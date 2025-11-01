@@ -1,5 +1,5 @@
 
--- Criação das tabelas com base no modelo relacional aprovado
+-- Criação das tabelas
 
 CREATE TABLE Usuario (
     id_usuario INT PRIMARY KEY,
