@@ -1,2 +1,2 @@
-# SAA-Sistema-de-Apoio-Avalia-o-de-Trabalhos-Acad-micos
-Plataforma que auxilia docentes na avaliação de trabalhos acadêmicos, com cadastro de critérios, registro de notas e relatórios automáticos de desempenho.
+## Sobre o Projeto
+Este é um projeto acadêmico focado no desenvolvimento de um sistema robusto para **gestão e avaliação de trabalhos**. O principal objetivo é centralizar dados de avaliação, simplificar a aplicação de critérios definidos por professores e gerar consultas estatísticas e gráficos detalhados sobre o desempenho dos trabalhos e avaliados. O sistema foi desenvolvido com ênfase na disciplina de Banco de Dados (BD1), utilizando para a modelagem e manipulação eficiente dos dados.
