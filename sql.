@@ -1,0 +1,88 @@
+
+DROP TABLE IF EXISTS nota_criterio, trabalho, criterio, avaliacao, est_part_discp, disciplina, professor, estudante, usuario CASCADE;
+
+-- 1. Tabela Base de Usuários
+CREATE TABLE Usuario (
+    id_usuario SERIAL PRIMARY KEY,
+    pnome VARCHAR(50) NOT NULL,
+    snome VARCHAR(50) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    senha VARCHAR(255) NOT NULL
+);
+
+-- 2. Tabela de Especialização: Estudante
+CREATE TABLE Estudante (
+    id_usuario INT PRIMARY KEY,
+    FOREIGN KEY (id_usuario) REFERENCES Usuario(id_usuario) ON DELETE CASCADE
+);
+
+-- 3. Tabela de Especialização: Professor
+CREATE TABLE Professor (
+    id_usuario INT PRIMARY KEY,
+    FOREIGN KEY (id_usuario) REFERENCES Usuario(id_usuario) ON DELETE CASCADE
+);
+
+-- 4. Tabela de Disciplina
+CREATE TABLE Disciplina (
+    id_disciplina SERIAL PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    adm_prof_id INT NOT NULL,
+    FOREIGN KEY (adm_prof_id) REFERENCES Professor(id_usuario)
+);
+
+-- 5. Tabela de Avaliação
+CREATE TABLE Avaliacao (
+    id_avaliacao SERIAL PRIMARY KEY,
+    id_disciplina INT NOT NULL,
+    cria_aval_prof_id INT NOT NULL,
+    cod_avaliacao VARCHAR(50) NOT NULL,
+    data_publicacao DATE,
+    prazo DATE,
+    FOREIGN KEY (id_disciplina) REFERENCES Disciplina(id_disciplina) ON DELETE CASCADE,
+    FOREIGN KEY (cria_aval_prof_id) REFERENCES Professor(id_usuario),
+    UNIQUE(id_disciplina, cod_avaliacao) 
+);
+
+-- 6. Tabela de Critério
+CREATE TABLE Criterio (
+    id_criterio SERIAL PRIMARY KEY,
+    id_avaliacao INT NOT NULL,
+    nome VARCHAR(100) NOT NULL,
+    descricao TEXT,
+    peso DECIMAL(5,2) CHECK (peso > 0),
+    FOREIGN KEY (id_avaliacao) REFERENCES Avaliacao(id_avaliacao) ON DELETE CASCADE
+);
+
+-- 7. Tabela de Submissão (Trabalho)
+CREATE TABLE Trabalho (
+    id_trabalho SERIAL PRIMARY KEY,
+    id_avaliacao INT NOT NULL,
+    id_usuario_est INT NOT NULL,
+    data_envio TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    arquivo_url TEXT NOT NULL,
+    status VARCHAR(20) DEFAULT 'Enviado',
+    FOREIGN KEY (id_usuario_est) REFERENCES Estudante(id_usuario),
+    FOREIGN KEY (id_avaliacao) REFERENCES Avaliacao(id_avaliacao) ON DELETE CASCADE,
+    UNIQUE(id_avaliacao, id_usuario_est)
+);
+
+-- 8. Tabela de Matrícula (Estudante <-> Disciplina)
+CREATE TABLE Est_part_discp (
+    id_usuario INT NOT NULL,
+    id_disciplina INT NOT NULL,
+    PRIMARY KEY (id_usuario, id_disciplina),
+    FOREIGN KEY (id_usuario) REFERENCES Estudante(id_usuario) ON DELETE CASCADE,
+    FOREIGN KEY (id_disciplina) REFERENCES Disciplina(id_disciplina) ON DELETE CASCADE
+);
+
+-- 9. Tabela de Notas por Critério (Finalização)
+CREATE TABLE Nota_Criterio (
+    id_nota_criterio SERIAL PRIMARY KEY,
+    id_trabalho INT NOT NULL,
+    id_criterio INT NOT NULL,
+    nota_atribuida DECIMAL(5,2) NOT NULL,
+    observacao TEXT,
+    FOREIGN KEY (id_trabalho) REFERENCES Trabalho(id_trabalho) ON DELETE CASCADE,
+    FOREIGN KEY (id_criterio) REFERENCES Criterio(id_criterio) ON DELETE CASCADE,
+    UNIQUE(id_trabalho, id_criterio)
+);
