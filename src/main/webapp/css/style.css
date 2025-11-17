@@ -1,0 +1,155 @@
+/* --- Configuração Geral --- */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+/* Centraliza o conteúdo principal */
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+h1, h2, h3 {
+    color: #2c3e50;
+    border-bottom: 2px solid #f0f0f0;
+    padding-bottom: 5px;
+}
+
+/* --- Cabeçalho e Logout --- */
+.header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 10px;
+}
+.header-top p {
+    font-size: 0.9em;
+    color: #555;
+}
+
+/* --- Tabelas --- */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+th, td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: left;
+}
+th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+/* Linhas da tabela zebradas */
+tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* --- Links e Botões --- */
+a {
+    color: #007bff;
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+}
+
+/* Botão Padrão */
+button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1em;
+}
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Botão de Salvar Verde */
+button.salvar {
+    background-color: #28a745;
+}
+button.salvar:hover {
+    background-color: #218838;
+}
+
+/* Links de Ação da Tabela */
+.excluir { color: #dc3545; }
+.ranking { color: #28a745; }
+
+/* --- Formulários --- */
+form {
+    width: 60%;
+    border: 1px solid #ddd;
+    padding: 25px;
+    border-radius: 8px;
+    background-color: #fdfdfd;
+}
+form div {
+    margin-bottom: 15px;
+}
+form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="date"],
+input[type="number"],
+select,
+textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box; /* Garante que o padding não quebre o layout */
+}
+textarea {
+    resize: vertical;
+}
+
+/* --- Tela de Login --- */
+.login-box {
+    width: 350px;
+    margin: 100px auto; /* Centraliza na tela (vertical/horizontal) */
+    padding: 30px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    text-align: center;
+}
+.error {
+    color: #dc3545;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 15px;
+}
+
+/* --- Mensagem de Sucesso --- */
+.sucesso {
+    color: #155724;
+    background-color: #d4edda;
+    border: 1px solid #c3e6cb;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 15px;
+}
