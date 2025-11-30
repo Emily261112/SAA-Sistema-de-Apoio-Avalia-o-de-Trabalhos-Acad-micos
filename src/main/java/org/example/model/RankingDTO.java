@@ -10,11 +10,13 @@ public class RankingDTO {
     private BigDecimal notaFinal;
     private int idTrabalho;
 
+    // --- CAMPO ADICIONADO PARA CORRIGIR O ERRO ---
+    private int idAluno;
+
     public RankingDTO() {
     }
 
     // --- Getters e Setters ---
-    // (Alt + Insert para gerar)
 
     public long getRank() {
         return rank;
@@ -46,5 +48,15 @@ public class RankingDTO {
 
     public void setIdTrabalho(int idTrabalho) {
         this.idTrabalho = idTrabalho;
+    }
+
+    // --- NOVOS MÉTODOS (O JSP PRECISA DELES) ---
+
+    public int getIdAluno() {
+        return idAluno;
+    }
+
+    public void setIdAluno(int idAluno) {
+        this.idAluno = idAluno;
     }
 }

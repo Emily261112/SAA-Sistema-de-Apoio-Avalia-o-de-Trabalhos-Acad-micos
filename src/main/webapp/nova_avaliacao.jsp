@@ -7,68 +7,79 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%
-    // NOVO: Pega o objeto Professor Logado da sessão
-    Professor professorLogado = (Professor) session.getAttribute("usuarioLogado");
-    int idProfessor = professorLogado.getIdUsuario(); // ID do professor logado
+    // 1. Pega o objeto Professor Logado da sessão
+    Object usuario = session.getAttribute("usuarioLogado");
 
-    // 1. Instancia os DAOs
-    UsuarioDAO usuarioDAO = new UsuarioDAO();
+    // Pequena proteção caso a sessão tenha expirado
+    if (usuario == null || !(usuario instanceof Professor)) {
+        response.sendRedirect("login.jsp");
+        return;
+    }
+
+    Professor professorLogado = (Professor) usuario;
+
+    // Guardamos o professor na sessão com o nome que o Servlet espera, por garantia
+    session.setAttribute("professorLogado", professorLogado);
+
+    int idProfessor = professorLogado.getIdUsuario();
+
+    // 2. Busca as disciplinas
     DisciplinaDAO disciplinaDAO = new DisciplinaDAO();
-
-    // 2. CORREÇÃO: Busca APENAS as disciplinas que o professor ministra (adm_prof_id = idProfessor)
     List<Disciplina> disciplinas = disciplinaDAO.findDisciplinasByProfessor(idProfessor);
-
-    // Armazenamos para o formulário usar
     request.setAttribute("disciplinas", disciplinas);
 %>
 
+<!DOCTYPE html>
 <html>
 <head>
     <title>Nova Avaliação</title>
+    <link rel="stylesheet" href="css/style.css">
     <style>
-        body { font-family: Arial, sans-serif; margin: 20px; }
-        h1 { color: #333; }
-        form { width: 50%; border: 1px solid #ddd; padding: 20px; border-radius: 8px; }
-        div { margin-bottom: 15px; }
+        .form-group { margin-bottom: 15px; }
         label { display: block; margin-bottom: 5px; font-weight: bold; }
-        input[type="text"], input[type="date"], select {
-            width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;
-        }
-        button { background-color: #007bff; color: white; padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer; }
-        a { color: #007bff; text-decoration: none; }
+        input, select { padding: 8px; width: 100%; max-width: 400px; }
+        button { margin-top: 20px; padding: 10px 20px; cursor: pointer; }
     </style>
 </head>
 <body>
+<div class="container">
 
-<h1>Cadastrar Nova Avaliação</h1>
+    <h1>Cadastrar Nova Avaliação</h1>
 
-<form action="criarAvaliacao" method="POST">
-    <div>
-        <label for="disciplina">Disciplina:</label>
-        <select id="disciplina" name="idDisciplina">
-            <c:forEach var="d" items="${disciplinas}">
-                <option value="${d.idDisciplina}">
-                    <c:out value="${d.nome}" />
-                </option>
-            </c:forEach>
-        </select>
-    </div>
+    <form action="cadastrarAvaliacao" method="POST">
 
-    <div>
-        <label for="codAvaliacao">Código da Avaliação (ex: AP2):</label>
-        <input type="text" id="codAvaliacao" name="codAvaliacao" required>
-    </div>
+        <div class="form-group">
+            <label for="disciplina">Disciplina:</label>
+            <select id="disciplina" name="disciplina" required>
+                <c:forEach var="d" items="${disciplinas}">
+                    <option value="${d.idDisciplina}">
+                        <c:out value="${d.nome}" />
+                    </option>
+                </c:forEach>
+            </select>
+        </div>
 
-    <div>
-        <label for="prazo">Prazo de Entrega:</label>
-        <input type="date" id="prazo" name="prazo" required>
-    </div>
+        <div class="form-group">
+            <label for="codigo">Código da Avaliação (ex: AP2):</label>
+            <input type="text" id="codigo" name="codigo" placeholder="Digite o código..." required>
+        </div>
 
-    <button type="submit">Salvar Avaliação</button>
-</form>
+        <div class="form-group">
+            <label for="maxQuestoes">Quantidade Máxima de Questões:</label>
+            <input type="number" id="maxQuestoes" name="maxQuestoes" min="1" value="10" required>
+        </div>
 
-<br/>
-<a href="index.jsp">Voltar para o Dashboard</a>
+        <div class="form-group">
+            <label for="prazo">Prazo de Entrega:</label>
+            <input type="date" id="prazo" name="prazo" required>
+        </div>
 
+        <button type="submit">Salvar e Montar Prova</button>
+    </form>
+
+    <br/>
+    <a href="index.jsp">Voltar para o Dashboard</a>
+
+</div>
 </body>
 </html>

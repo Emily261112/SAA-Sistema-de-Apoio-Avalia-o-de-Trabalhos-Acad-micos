@@ -1,6 +1,8 @@
 package org.example.model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Avaliacao {
 
@@ -13,11 +15,16 @@ public class Avaliacao {
     private Disciplina disciplina;
     private Professor professorCriador;
 
+    // --- NOVOS CAMPOS ADICIONADOS ---
+    private int maxQuestoes; // Corrige o erro do Servlet
+
+    // Lista para guardar as questões vinculadas a esta prova (útil para a tela de Montar Prova)
+    private List<Questao> questoes = new ArrayList<>();
+
     public Avaliacao() {
     }
 
     // --- Getters e Setters ---
-    // (Alt + Insert para gerar)
 
     public int getIdAvaliacao() {
         return idAvaliacao;
@@ -65,5 +72,23 @@ public class Avaliacao {
 
     public void setProfessorCriador(Professor professorCriador) {
         this.professorCriador = professorCriador;
+    }
+
+    // --- NOVOS GETTERS E SETTERS (PARA O CÓDIGO FUNCIONAR) ---
+
+    public int getMaxQuestoes() {
+        return maxQuestoes;
+    }
+
+    public void setMaxQuestoes(int maxQuestoes) {
+        this.maxQuestoes = maxQuestoes;
+    }
+
+    public List<Questao> getQuestoes() {
+        return questoes;
+    }
+
+    public void setQuestoes(List<Questao> questoes) {
+        this.questoes = questoes;
     }
 }

@@ -18,43 +18,37 @@
 <html>
 <head>
     <title>Trabalhos Enviados</title>
-    <style>
-        body { font-family: Arial, sans-serif; margin: 20px; }
-        h1 { color: #333; }
-        table { border-collapse: collapse; width: 60%; }
-        th, td { border: 1px solid #ddd; padding: 8px; }
-        th { background-color: #f2f2f2; text-align: left; }
-        a { color: #007bff; text-decoration: none; }
-    </style>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+<div class="container">
 
-<h1>Trabalhos Enviados (Avaliação ID: ${param.id})</h1>
+    <h1>Trabalhos Enviados (Avaliação ID: ${param.id})</h1>
 
-<table>
-    <tr>
-        <th>Aluno</th>
-        <th>Arquivo</th>
-        <th>Data de Envio</th>
-        <th>Status</th>
-        <th>Ação</th>
-    </tr>
-
-    <c:forEach var="t" items="${trabalhos}">
+    <table>
         <tr>
-            <td><c:out value="${t.estudante.pnome} ${t.estudante.snome}" /></td>
-            <td><c:out value="${t.arquivoUrl}" /></td>
-            <td><c:out value="${t.dataEnvio}" /></td>
-            <td><c:out value="${t.status}" /></td>
-            <td>
-                <a href="lancar_nota.jsp?id_trabalho=${t.idTrabalho}">Lançar Nota</a>
-            </td>
+            <th>Aluno</th>
+            <th>Arquivo</th>
+            <th>Data de Envio</th>
+            <th>Status</th>
+            <th>Ação</th>
         </tr>
-    </c:forEach>
-</table>
 
-<br/>
-<a href="avaliacoes.jsp">Voltar para Avaliações</a>
+        <c:forEach var="t" items="${trabalhos}">
+            <tr>
+                <td><c:out value="${t.estudante.pnome} ${t.estudante.snome}" /></td>
+                <td><c:out value="${t.arquivoUrl}" /></td>
+                <td><c:out value="${t.dataEnvio}" /></td>
+                <td><c:out value="${t.status}" /></td>
+                <td>
+                    <a href="lancar_nota.jsp?id_trabalho=${t.idTrabalho}" class="acao-editar">Lançar Nota</a>
+                </td>
+            </tr>
+        </c:forEach>
+    </table>
 
-</body>
+    <br/>
+    <a href="avaliacoes.jsp">Voltar para Avaliações</a>
+
+</div> </body>
 </html>

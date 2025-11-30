@@ -8,55 +8,53 @@
     // 1. Instancia o DAO
     TrabalhoDAO trabalhoDAO = new TrabalhoDAO();
 
-    // 2. Chama o método de relatório
+    // 2. Chama o método de relatório (Média Global de todas as APs)
     Map<String, BigDecimal> medias = trabalhoDAO.getOverallFinalAverage();
 
-    // 3. Guarda o resultado para o JSP usar
+    // 3. Guarda o resultado
     request.setAttribute("mediasGerais", medias);
 %>
 
 <html>
 <head>
     <title>Média Final Global</title>
-    <style>
-        body { font-family: Arial, sans-serif; margin: 20px; } h1 { color: #333; }
-        table { border-collapse: collapse; width: 60%; margin-top: 15px; }
-        th, td { border: 1px solid #ddd; padding: 10px; } th { background-color: #f2f2f2; text-align: left; }
-    </style>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+<div class="container">
 
-<h1>Média Final Global (Todas as Avaliações)</h1>
-<a href="index.jsp">Voltar para o Dashboard</a>
-<br/>
+    <h1>Média Final Global (Todas as Avaliações)</h1>
 
-<table>
-    <tr>
-        <th>Aluno</th>
-        <th>Média Geral</th>
-        <th>Situação Final</th>
-    </tr>
-
-    <c:forEach var="entry" items="${mediasGerais}">
+    <table>
         <tr>
-            <td><c:out value="${entry.key}" /></td>
-            <td><c:out value="${entry.value}" /></td>
-            <td>
-                <c:choose>
-                    <c:when test="${entry.value < 3.0}">
-                        <span style='color: red; font-weight: bold;'>REPROVADO</span>
-                    </c:when>
-                    <c:when test="${entry.value < 6.0}">
-                        <span style='color: orange; font-weight: bold;'>EXAME</span>
-                    </c:when>
-                    <c:otherwise>
-                        <span style='color: green; font-weight: bold;'>APROVADO</span>
-                    </c:otherwise>
-                </c:choose>
-            </td>
+            <th>Aluno</th>
+            <th>Média Geral</th>
+            <th>Situação Final</th>
         </tr>
-    </c:forEach>
-</table>
 
-</body>
+        <c:forEach var="entry" items="${mediasGerais}">
+            <tr>
+                <td><c:out value="${entry.key}" /></td>
+                <td><c:out value="${entry.value}" /></td>
+                <td>
+                    <c:choose>
+                        <c:when test="${entry.value < 3.0}">
+                            <span style='color: #dc3545; font-weight: bold;'>REPROVADO</span>
+                        </c:when>
+                        <c:when test="${entry.value < 6.0}">
+                            <span style='color: #ffc107; font-weight: bold;'>EXAME</span>
+                        </c:when>
+                        <c:otherwise>
+                            <span style='color: #28a745; font-weight: bold;'>APROVADO</span>
+                        </c:otherwise>
+                    </c:choose>
+                </td>
+            </tr>
+        </c:forEach>
+    </table>
+
+    <br/>
+    <a href="index.jsp">Voltar para o Dashboard</a>
+
+</div> </body>
 </html>

@@ -5,54 +5,48 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%
-    // 1. CORREÇÃO: Pega o ID da avaliação que veio da URL (ex: ?id=1, ?id=2)
+    // 1. Pega o ID da avaliação que veio da URL
     int idAvaliacao = Integer.parseInt(request.getParameter("id"));
 
     // 2. Instancia o DAO
     TrabalhoDAO trabalhoDAO = new TrabalhoDAO();
 
-    // 3. Chama o método do relatório (o SQL com RANK()) usando o ID dinâmico
+    // 3. Chama o método do relatório usando o ID dinâmico
     List<RankingDTO> ranking = trabalhoDAO.getRankingAvaliacao(idAvaliacao);
 
-    // 4. Guarda o resultado para o JSP usar
+    // 4. Guarda o resultado
     request.setAttribute("ranking", ranking);
-    request.setAttribute("idAvaliacao", idAvaliacao); // Guarda o ID para o título
+    request.setAttribute("idAvaliacao", idAvaliacao);
 %>
 
 <html>
 <head>
     <title>Ranking da Avaliação #${idAvaliacao}</title>
-    <style>
-        body { font-family: Arial, sans-serif; margin: 20px; }
-        h1 { color: #333; }
-        table { border-collapse: collapse; width: 60%; }
-        th, td { border: 1px solid #ddd; padding: 8px; }
-        th { background-color: #f2f2f2; text-align: left; }
-        a { color: #007bff; text-decoration: none; }
-    </style>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+<div class="container">
 
-<h1>Ranking da Avaliação (ID: ${idAvaliacao})</h1>
+    <h1>Ranking da Avaliação (ID: ${idAvaliacao})</h1>
 
-<table>
-    <tr>
-        <th>Posição</th>
-        <th>Aluno</th>
-        <th>Nota Final</th>
-    </tr>
-
-    <c:forEach var="item" items="${ranking}">
+    <table>
         <tr>
-            <td><c:out value="${item.rank}" /></td>
-            <td><c:out value="${item.nomeEstudante}" /></td>
-            <td><c:out value="${item.notaFinal}" /></td>
+            <th>Posição</th>
+            <th>Aluno</th>
+            <th>Nota Final</th>
         </tr>
-    </c:forEach>
-</table>
 
-<br/>
-<a href="avaliacoes.jsp">Voltar para Avaliações</a>
+        <c:forEach var="item" items="${ranking}">
+            <tr>
+                <td style="font-weight: bold; color: #007bff;">${item.rank}º</td>
+                <td><c:out value="${item.nomeEstudante}" /></td>
+                <td><c:out value="${item.notaFinal}" /></td>
+            </tr>
+        </c:forEach>
+    </table>
 
-</body>
+    <br/>
+    <a href="avaliacoes.jsp">Voltar para Avaliações</a>
+
+</div> </body>
 </html>

@@ -1,155 +1,115 @@
-/* --- Configuração Geral --- */
-body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f8f9fa;
-    color: #333;
+/* =========================================
+   1. RESET E GERAL (Vale para todo o site)
+   ========================================= */
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
+
+/* =========================================
+   2. ESTILO EXCLUSIVO DO LOGIN (Moderno)
+   ========================================= */
+/* Fundo da página APENAS no login */
+body.login-page {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); /* Roxo moderno */
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-/* Centraliza o conteúdo principal */
-.container {
-    width: 90%;
-    max-width: 1200px;
-    margin: 20px auto;
-    padding: 20px;
+/* O Cartão Branco */
+.login-card {
     background-color: #ffffff;
+    width: 100%;
+    max-width: 400px;
+    padding: 40px;
+    border-radius: 12px; /* Bordas arredondadas */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2); /* Sombra suave */
+    text-align: center;
+}
+
+.login-card h1 {
+    margin-bottom: 10px;
+    color: #333;
+    font-size: 2rem;
+}
+
+.subtitle {
+    color: #666;
+    margin-bottom: 30px;
+    font-size: 0.95rem;
+}
+
+/* Inputs do Login */
+.login-card input[type="email"],
+.login-card input[type="password"] {
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
     border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    background-color: #f9f9f9;
+    font-size: 16px;
 }
 
-h1, h2, h3 {
-    color: #2c3e50;
-    border-bottom: 2px solid #f0f0f0;
-    padding-bottom: 5px;
+/* Botão de Login */
+.btn-login {
+    width: 100%;
+    padding: 15px;
+    background-color: #764ba2; /* Cor do botão igual ao fundo */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+.btn-login:hover { background-color: #5b3a82; }
+
+/* Link do Rodapé do Login */
+.login-footer { margin-top: 20px; font-size: 0.9rem; }
+.login-footer a { color: #764ba2; font-weight: bold; text-decoration: none; }
+
+/* Mensagem de Erro */
+.error-message {
+    background-color: #ffebee;
+    color: #c62828;
+    padding: 10px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    border: 1px solid #ef9a9a;
 }
 
-/* --- Cabeçalho e Logout --- */
-.header-top {
+
+/* =========================================
+   3. ESTILO DO DASHBOARD (Interno)
+   ========================================= */
+/* Fundo padrão para as outras páginas */
+body { background-color: #f4f7f6; color: #333; }
+
+/* Barra Superior */
+.navbar {
+    background-color: #2c3e50;
+    color: white;
+    padding: 1rem 2rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 2px solid #007bff;
-    padding-bottom: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
-.header-top p {
-    font-size: 0.9em;
-    color: #555;
-}
+.nav-brand { font-size: 1.5rem; font-weight: bold; }
+.nav-links a { color: white; margin-right: 15px; text-decoration: none; }
+.btn-logout { background-color: #e74c3c; padding: 5px 10px; border-radius: 4px; text-decoration: none; color: white; }
 
-/* --- Tabelas --- */
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 15px;
-}
-th, td {
-    border: 1px solid #ddd;
-    padding: 12px;
-    text-align: left;
-}
-th {
-    background-color: #f2f2f2;
-    font-weight: bold;
-}
-/* Linhas da tabela zebradas */
-tbody tr:nth-child(even) {
-    background-color: #f9f9f9;
-}
+/* Layout */
+.container { max-width: 1100px; margin: 2rem auto; padding: 0 20px; }
+.card { background: white; padding: 25px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
 
-/* --- Links e Botões --- */
-a {
-    color: #007bff;
-    text-decoration: none;
-}
-a:hover {
-    text-decoration: underline;
-}
+/* Tabelas e Botões Gerais */
+table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+th { text-align: left; padding: 12px; background-color: #f8f9fa; border-bottom: 2px solid #dee2e6; }
+td { padding: 12px; border-bottom: 1px solid #dee2e6; }
 
-/* Botão Padrão */
-button {
-    background-color: #007bff;
-    color: white;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 1em;
-}
-button:hover {
-    background-color: #0056b3;
-}
-
-/* Botão de Salvar Verde */
-button.salvar {
-    background-color: #28a745;
-}
-button.salvar:hover {
-    background-color: #218838;
-}
-
-/* Links de Ação da Tabela */
-.excluir { color: #dc3545; }
-.ranking { color: #28a745; }
-
-/* --- Formulários --- */
-form {
-    width: 60%;
-    border: 1px solid #ddd;
-    padding: 25px;
-    border-radius: 8px;
-    background-color: #fdfdfd;
-}
-form div {
-    margin-bottom: 15px;
-}
-form label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-}
-input[type="text"],
-input[type="email"],
-input[type="password"],
-input[type="date"],
-input[type="number"],
-select,
-textarea {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box; /* Garante que o padding não quebre o layout */
-}
-textarea {
-    resize: vertical;
-}
-
-/* --- Tela de Login --- */
-.login-box {
-    width: 350px;
-    margin: 100px auto; /* Centraliza na tela (vertical/horizontal) */
-    padding: 30px;
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    text-align: center;
-}
-.error {
-    color: #dc3545;
-    background-color: #f8d7da;
-    border: 1px solid #f5c6cb;
-    padding: 10px;
-    border-radius: 4px;
-    margin-bottom: 15px;
-}
-
-/* --- Mensagem de Sucesso --- */
-.sucesso {
-    color: #155724;
-    background-color: #d4edda;
-    border: 1px solid #c3e6cb;
-    padding: 10px;
-    border-radius: 4px;
-    margin-bottom: 15px;
+.btn-action {
+    background-color: #3498db; color: white; padding: 10px 20px;
+    border-radius: 6px; text-decoration: none; display: inline-block; margin-right: 10px;
 }
