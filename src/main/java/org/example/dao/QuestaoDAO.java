@@ -17,7 +17,6 @@ public class QuestaoDAO {
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setString(1, q.getEnunciado());
-            // Garante um valor padrão se vier nulo
             stmt.setString(2, q.getTipo() != null ? q.getTipo() : "Discursiva");
             stmt.setInt(3, q.getDisciplina().getIdDisciplina());
 
@@ -31,7 +30,7 @@ public class QuestaoDAO {
         }
     }
 
-    // 2. VINCULA uma questão já existente a uma Prova (Salva na Tabela de Ligação)
+    // 2. Vincula uma questão já existente a uma Prova (Salva na Tabela de Ligação)
     public void vincularQuestaoNaProva(int idAvaliacao, int idQuestao) {
         String sql = "INSERT INTO Prova_Questao (id_avaliacao, id_questao) VALUES (?, ?)";
 
@@ -43,21 +42,14 @@ public class QuestaoDAO {
             stmt.executeUpdate();
 
         } catch (SQLException e) {
-            // Se tentar vincular a mesma questão 2x, pode dar erro de chave duplicada (ignoramos ou tratamos)
+            // Se tentar vincular a mesma questão 2x, pode dar erro de chave duplicada
             e.printStackTrace();
         }
     }
 
-    // ==================================================================================
-    // ▼▼▼ MÉTODOS CORRIGIDOS PARA O JSP "MONTAR PROVA" FUNCIONAR ▼▼▼
-    // ==================================================================================
+    // MÉTODOS PARA O JSP "MONTAR PROVA"
 
-    /**
-     * LISTA DA ESQUERDA: Busca questões da disciplina que AINDA NÃO estão nesta prova.
-     * (Renomeado de buscarPorDisciplina para buscarQuestoesDisponiveis)
-     */
     public List<Questao> buscarQuestoesDisponiveis(int idDisciplina, int idAvaliacao) {
-        // SQL Inteligente: Traz questões da disciplina, EXCETO (NOT IN) as que já estão vinculadas
         String sql = "SELECT * FROM Questao " +
                 "WHERE id_disciplina = ? " +
                 "AND id_questao NOT IN (" +
@@ -92,10 +84,6 @@ public class QuestaoDAO {
         return lista;
     }
 
-    /**
-     * LISTA DE BAIXO: Busca as questões que JÁ ESTÃO na prova.
-     * (Renomeado de buscarPorAvaliacao para buscarQuestoesDaProva)
-     */
     public List<Questao> buscarQuestoesDaProva(int idAvaliacao) {
         String sql = "SELECT q.* FROM Questao q " +
                 "JOIN Prova_Questao pq ON q.id_questao = pq.id_questao " +

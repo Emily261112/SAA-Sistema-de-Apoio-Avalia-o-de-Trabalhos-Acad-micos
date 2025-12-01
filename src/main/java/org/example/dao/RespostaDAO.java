@@ -9,8 +9,7 @@ import java.util.List;
 
 public class RespostaDAO {
 
-    // 1. Busca as respostas de UM aluno em UMA prova específica
-    // Traz junto o enunciado da questão para o professor ler
+    // 1. Busca as respostas de um aluno em uma prova específica
     public List<Resposta> buscarRespostasDoAluno(int idAvaliacao, int idAluno) {
         String sql = "SELECT r.id_resposta, r.resposta_texto, r.nota_obtida, " +
                 "       q.enunciado, q.tipo " +

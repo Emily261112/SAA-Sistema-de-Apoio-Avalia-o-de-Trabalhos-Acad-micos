@@ -13,10 +13,7 @@ import java.util.List; // Importe o List
 
 public class MatriculaDAO {
 
-    /**
-     * Matricula um estudante em uma disciplina.
-     * Insere uma nova linha na tabela Est_part_discp.
-     */
+    //Matricula um estudante em uma disciplina.
     public void matricular(Estudante estudante, Disciplina disciplina) {
         String sql = "INSERT INTO Est_part_discp (id_usuario, id_disciplina) VALUES (?, ?)";
 
@@ -28,19 +25,12 @@ public class MatriculaDAO {
             stmt.executeUpdate();
 
         } catch (SQLException e) {
-            // Trata exceções, ex: "PRIMARY KEY constraint violation"
-            // (aluno já matriculado)
+
             throw new RuntimeException("Erro ao matricular estudante: " + e.getMessage(), e);
         }
     }
 
-    // ==================================================================
-    // ▼▼▼ NOVO MÉTODO DE RELATÓRIO ADICIONADO ▼▼▼
-    // ==================================================================
-    /**
-     * RELATÓRIO: Lista todos os estudantes matriculados em uma disciplina.
-     * Isso usa JOIN em 4 tabelas.
-     */
+    //MÉTODO_DE_RELATÓRIO_ADICIONADO
     public List<Estudante> findEstudantesByDisciplina(int idDisciplina) {
         String sql = "SELECT u.id_usuario, u.pnome, u.snome, u.email " +
                 "FROM Usuario u " +

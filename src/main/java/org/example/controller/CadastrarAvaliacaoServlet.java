@@ -22,7 +22,6 @@ public class CadastrarAvaliacaoServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
             // 1. Recebe os dados do formulário
-            // (Certifique-se que no JSP os 'name' dos inputs sejam: disciplina, codigo, prazo, maxQuestoes)
             String idDisciplinaStr = req.getParameter("disciplina");
             String codigo = req.getParameter("codigo");
             String prazoStr = req.getParameter("prazo");
@@ -31,7 +30,7 @@ public class CadastrarAvaliacaoServlet extends HttpServlet {
             // 2. Pega o professor da sessão (Quem está logado)
             HttpSession session = req.getSession();
             Professor professor = (Professor) session.getAttribute("professorLogado");
-            // OBS: Verifique se na sessão você salvou como "professorLogado" ou "usuarioLogado"
+
 
             if (professor == null) {
                 resp.sendRedirect("login.jsp");
@@ -58,14 +57,11 @@ public class CadastrarAvaliacaoServlet extends HttpServlet {
             AvaliacaoDAO dao = new AvaliacaoDAO();
             dao.salvar(avaliacao);
 
-            // O objeto 'avaliacao' agora tem o ID atualizado pelo DAO (RETURNING id)
-
-            // 5. O PULO DO GATO: Redireciona para a tela de montar prova!
+            // 5. Redireciona para a tela de montar prova
             resp.sendRedirect("montarProva?idAvaliacao=" + avaliacao.getIdAvaliacao());
 
         } catch (Exception e) {
             e.printStackTrace();
-            // Se der erro, volta para o formulário (ideal seria mandar mensagem de erro)
             resp.sendRedirect("nova_avaliacao.jsp?erro=true");
         }
     }

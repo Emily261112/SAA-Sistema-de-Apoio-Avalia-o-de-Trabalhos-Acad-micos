@@ -14,10 +14,10 @@ public class VincularQuestaoServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        // 1. Pega o ID da Avaliação (AP1, AP2...)
+        // 1. Pega o ID da Avaliação
         String idAvaliacaoStr = req.getParameter("idAvaliacao");
 
-        // 2. Pega os IDs das questões que foram marcadas (é um array de Strings)
+        // 2. Pega os IDs das questões que foram marcadas
         String[] idsSelecionados = req.getParameterValues("idsSelecionados");
 
         if (idAvaliacaoStr != null && idsSelecionados != null) {

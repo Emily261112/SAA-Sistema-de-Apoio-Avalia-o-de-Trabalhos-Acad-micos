@@ -24,7 +24,7 @@ public class SalvarCorrecaoServlet extends HttpServlet {
             // Se o campo começa com "nota_", é uma nota de resposta
             if (nomeParametro.startsWith("nota_")) {
                 try {
-                    // Extrai o ID da resposta do nome (ex: "nota_55" -> 55)
+                    // Extrai o ID da resposta do nome
                     int idResposta = Integer.parseInt(nomeParametro.split("_")[1]);
 
                     // Pega o valor digitado

@@ -28,14 +28,14 @@ public class SalvarNovaQuestaoServlet extends HttpServlet {
         q.setEnunciado(enunciado);
         q.setTipo(tipo);
 
-        // Define a disciplina (Necessário pois mudamos o banco para vincular à disciplina)
+        // Define a disciplina
         Disciplina d = new Disciplina();
         d.setIdDisciplina(idDisciplina);
         q.setDisciplina(d);
 
         QuestaoDAO dao = new QuestaoDAO();
 
-        // 3. Salva no Banco Geral (Aqui o objeto 'q' ganha um ID gerado pelo banco)
+        // 3. Salva no Banco Geral (o objeto 'q' ganha um ID gerado pelo banco)
         dao.salvar(q);
 
         // 4. Pega esse ID novo e já vincula nesta prova

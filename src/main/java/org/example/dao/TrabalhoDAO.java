@@ -78,12 +78,9 @@ public class TrabalhoDAO {
         return trabalhos;
     }
 
-    // ==================================================================
-    // ▼▼▼ RELATÓRIO FINAL (RANKING) - TRAVADO EM 10.0 ▼▼▼
-    // ==================================================================
+    // RELATÓRIO_FINAL (RANKING) - TRAVADO EM 10.00
     public List<RankingDTO> getRankingAvaliacao(int idAvaliacao) {
 
-        // Garante que a nota da prova não passe de 10
         String sql = "WITH NotasAluno AS (" +
                 "    SELECT " +
                 "        t.id_trabalho, " +
@@ -133,12 +130,8 @@ public class TrabalhoDAO {
         return ranking;
     }
 
-    // ==================================================================
-    // ▼▼▼ MÉDIA GERAL (MÉDIA SIMPLES) ▼▼▼
-    // ==================================================================
+    // MÉDIA_GERAL
     public Map<String, BigDecimal> getOverallFinalAverage() {
-
-        // VOLTOU PARA AVG (Média Simples)
         // Calcula a média das provas (já travadas em 10)
         String sql = "SELECT u.pnome || ' ' || COALESCE(u.snome, '') AS nome_aluno, " +
                 "       AVG( " +

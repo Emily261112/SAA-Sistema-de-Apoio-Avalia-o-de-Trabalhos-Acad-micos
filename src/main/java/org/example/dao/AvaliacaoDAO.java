@@ -13,7 +13,6 @@ import java.util.List;
 public class AvaliacaoDAO {
 
     public void salvar(Avaliacao avaliacao) {
-        // ATUALIZADO: Agora salva o max_questoes também
         String sql = "INSERT INTO Avaliacao (id_disciplina, cria_aval_prof_id, cod_avaliacao, data_publicacao, prazo, max_questoes) " +
                 "VALUES (?, ?, ?, ?, ?, ?) RETURNING id_avaliacao";
 
@@ -26,7 +25,6 @@ public class AvaliacaoDAO {
             stmt.setDate(4, Date.valueOf(avaliacao.getDataPublicacao()));
             stmt.setDate(5, Date.valueOf(avaliacao.getPrazo()));
 
-            // Define um padrão de 10 se estiver zerado
             int maxQ = avaliacao.getMaxQuestoes() > 0 ? avaliacao.getMaxQuestoes() : 10;
             stmt.setInt(6, maxQ);
 
@@ -62,7 +60,7 @@ public class AvaliacaoDAO {
                         av.setPrazo(rs.getDate("prazo").toLocalDate());
                     }
 
-                    // Tenta pegar o max_questoes
+
                     try { av.setMaxQuestoes(rs.getInt("max_questoes")); } catch (Exception e) {}
 
                     Disciplina d = new Disciplina();
@@ -162,10 +160,6 @@ public class AvaliacaoDAO {
         return avaliacoes;
     }
 
-    // ==================================================================
-    // ▼▼▼ MÉTODO DELETAR (VERSÃO FINAL) ▼▼▼
-    // Remove Respostas -> Trabalhos -> Prova_Questao -> Avaliacao
-    // ==================================================================
     public void deletar(int idAvaliacao) {
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -174,34 +168,29 @@ public class AvaliacaoDAO {
             conn = ConnectionFactory.getConnection();
             conn.setAutoCommit(false); // Inicia Transação
 
-            // 1. Apaga as RESPOSTAS dos alunos
             String sqlRespostas = "DELETE FROM Resposta WHERE id_avaliacao = ?";
             stmt = conn.prepareStatement(sqlRespostas);
             stmt.setInt(1, idAvaliacao);
             stmt.executeUpdate();
             stmt.close();
 
-            // 2. Apaga os TRABALHOS (PDFs)
             String sqlTrabalhos = "DELETE FROM Trabalho WHERE id_avaliacao = ?";
             stmt = conn.prepareStatement(sqlTrabalhos);
             stmt.setInt(1, idAvaliacao);
             stmt.executeUpdate();
             stmt.close();
 
-            // 3. Apaga os vínculos PROVA-QUESTÃO
             String sqlLimpar = "DELETE FROM Prova_Questao WHERE id_avaliacao = ?";
             stmt = conn.prepareStatement(sqlLimpar);
             stmt.setInt(1, idAvaliacao);
             stmt.executeUpdate();
             stmt.close();
 
-            // 4. Apaga a Avaliação
             String sqlDeletar = "DELETE FROM Avaliacao WHERE id_avaliacao = ?";
             stmt = conn.prepareStatement(sqlDeletar);
             stmt.setInt(1, idAvaliacao);
             stmt.executeUpdate();
 
-            // 5. Confirma tudo
             conn.commit();
 
         } catch (SQLException e) {

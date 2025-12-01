@@ -2,8 +2,8 @@ package org.example.controller;
 
 import org.example.dao.UsuarioDAO;
 import org.example.dao.DisciplinaDAO;
-import org.example.model.Professor; // Importe Professor
-import org.example.model.Disciplina; // Importe Disciplina
+import org.example.model.Professor;
+import org.example.model.Disciplina;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.time.LocalDate; // Necessário para simular data de criação
+import java.time.LocalDate;
 
 @WebServlet("/cadastrarProfessor")
 public class CadastrarProfessorServlet extends HttpServlet {
@@ -38,7 +38,7 @@ public class CadastrarProfessorServlet extends HttpServlet {
             novoProfessor.setEmail(email);
             novoProfessor.setSenha(senha);
 
-            // 3. Salvar o Professor (UsuarioDAO faz o INSERT duplo)
+            // 3. Salvar o Professor
             usuarioDAO.salvar(novoProfessor);
 
             // 4. Criar o objeto Disciplina, usando o ID que acabamos de gerar

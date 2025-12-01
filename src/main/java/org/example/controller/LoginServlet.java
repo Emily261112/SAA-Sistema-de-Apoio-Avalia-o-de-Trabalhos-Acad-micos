@@ -30,7 +30,7 @@ public class LoginServlet extends HttpServlet {
             // 1. Verifica se o usuário existe, se é um Professor E se a senha confere
             if (usuario != null && usuario instanceof Professor && usuario.getSenha().equals(senha)) {
 
-                // 2. Login bem-sucedido!
+                // 2. Login bem-sucedido
                 HttpSession session = request.getSession(true);
                 session.setAttribute("usuarioLogado", usuario); // Guarda o objeto Professor na sessão
 

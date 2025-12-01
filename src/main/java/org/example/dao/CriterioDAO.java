@@ -35,12 +35,6 @@ public class CriterioDAO {
         }
     }
 
-    // ==================================================================
-    // ▼▼▼ MÉTODO DE RELATÓRIO ADICIONADO ▼▼▼
-    // ==================================================================
-    /**
-     * RELATÓRIO: Busca todos os critérios de uma ÚNICA avaliação.
-     */
     public List<Criterio> findCriteriosByAvaliacao(int idAvaliacao) {
         String sql = "SELECT * FROM Criterio WHERE id_avaliacao = ?";
         List<Criterio> criterios = new ArrayList<>();
@@ -66,13 +60,7 @@ public class CriterioDAO {
         return criterios;
     }
 
-    // ==================================================================
-    // ▼▼▼ NOVO MÉTODO DINÂMICO ADICIONADO (CORREÇÃO DO BUG) ▼▼▼
-    // ==================================================================
-    /**
-     * Busca os critérios corretos (dinamicamente) com base no ID do trabalho.
-     * Usa JOIN para descobrir a qual avaliação o trabalho pertence.
-     */
+
     public List<Criterio> findCriteriosByTrabalhoId(int idTrabalho) {
         String sql = "SELECT c.* " +
                 "FROM Criterio c " +

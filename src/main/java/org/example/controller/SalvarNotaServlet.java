@@ -23,7 +23,7 @@ public class SalvarNotaServlet extends HttpServlet {
             throws ServletException, IOException {
 
         try {
-            // Pega o ID do trabalho (que enviou o form)
+            // Pega o ID do trabalho
             int idTrabalho = Integer.parseInt(request.getParameter("idTrabalho"));
 
             // Pega a LISTA de IDs de critérios que estavam no form
@@ -35,7 +35,6 @@ public class SalvarNotaServlet extends HttpServlet {
                     int idCriterio = Integer.parseInt(idCriterioStr);
 
                     // Pega os dados específicos daquele critério
-                    // (Ex: "nota_1", "obs_1", "nota_2", "obs_2")
                     String nomeParamNota = "nota_" + idCriterio;
                     String nomeParamObs = "obs_" + idCriterio;
 
